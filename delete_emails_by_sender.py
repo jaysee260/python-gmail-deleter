@@ -15,6 +15,7 @@ if len(senders) == 0:
     quit()
 
 deleted_emails_count = 0
+# If modifying scopes, delete the file token.pickle.
 gmail_client = GmailClient(
     credentials_file='credentials.json',
     scopes=['https://mail.google.com/']

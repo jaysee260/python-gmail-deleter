@@ -36,10 +36,13 @@ class GmailClient:
         ).execute()
 
     def __authenticate_gmail(self):
+        # the file token.pickle stores the user's access and refresh tokens, and is
+        # created automatically when the authorization flow completes for the first time
         if os.path.exists('token.pickle'):
             with open('token.pickle', 'rb') as token:
                 self.__creds = pickle.load(token)
         
+        # if there are no (valid) credentials availablle, let the user log in.
         if not self.__creds or not self.__creds.valid:
             if self.__creds and self.__creds.expired and self.__creds.refresh_token:
                 self.__creds.refresh(Request())
@@ -47,6 +50,7 @@ class GmailClient:
                 flow = InstalledAppFlow.from_client_secrets_file(self.__credentials_file, self.__scopes)
                 self.__creds = flow.run_local_server(port=0)
 
+            # save the credentials for the next run
             with open('token.pickle', 'wb') as token:
                 pickle.dump(self.__creds, token)
 
