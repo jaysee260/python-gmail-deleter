@@ -51,11 +51,5 @@ class GmailClient:
                 pickle.dump(self.__creds, token)
 
         return build('gmail', 'v1', credentials=self.__creds)
+       
         
-
-
-
-client = GmailClient(
-    credentials_file='credentials.json',
-    scopes=['https://mail.google.com/']
-)
